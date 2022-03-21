@@ -18,32 +18,31 @@ public:
 
 class Solution {
 public:
-    
-    void printLevelOrderTravesal(Node* root)
-    {
-        if(root==NULL) return;
-    }
-    
     Node* connect(Node* root) {
-        if(root==NULL) return root;
-        queue<Node*> q;
-        q.push(root);
-        q.push(NULL);
-        while(q.size()>1)
+        Node* leftNode = root;
+        while(leftNode!=NULL && leftNode->left!=NULL)
         {
-            Node* curr = q.front();
-            q.pop();
-            if(curr==NULL)
-            {
-                q.push(NULL);
-                continue;
-            }
-            curr->next = q.front();
-            
-            if(curr->left!=NULL) q.push(curr->left);
-            if(curr->right!=NULL) q.push(curr->right);
+            populate(leftNode);
+            leftNode = leftNode->left;
         }
         
         return root;
     }
+    
+    void populate(Node* startNode)
+    {
+        Node* itr = startNode;
+        while(itr!=NULL)
+        {
+            itr->left->next = itr->right;
+            if(itr->next!=NULL)
+            {
+                itr->right->next = itr->next->left;
+            }
+            itr = itr->next;
+        }
+    }
+    
+    
+    
 };
