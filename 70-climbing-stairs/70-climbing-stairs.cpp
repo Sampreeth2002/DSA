@@ -1,7 +1,7 @@
 class Solution {
 public:
     int climbStairs(int n) {
-        vector<int>v (n+1,-1);
+        // vector<int>v (n+1,-1);
         int curr = -1;
         int prev1 = 1;
         int prev2 = 1;
