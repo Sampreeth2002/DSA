@@ -83,21 +83,40 @@ struct Node {
 //Function to merge two sorted linked list.
 Node* sortedMerge(Node* head1, Node* head2)  
 {  
-    if(head1==NULL) return head1;
-    if(head2== NULL) return head2;
-    if(head1->data>head2->data) std::swap(head1,head2);
-    Node* res = head1;
-    
-    while(head1 && head2)
+    Node* temp1 = head1;
+    Node* temp2 = head2;
+    Node* prev = new Node(-1);
+    if(temp1->data<temp2->data) std::swap(temp1,temp2);
+    prev->next=temp2;
+    Node* prev2= prev;
+
+    while(temp1 && temp2)
     {
-        Node* temp = NULL;
-        while(head1 !=NULL && head1->data<=head2->data)
+        if(temp2->data<=temp1->data)
         {
-            temp = head1;
-            head1 = head1->next;
+            temp2 = temp2->next;
+            prev = prev->next;
         }
-        temp->next = head2;
-        std::swap(head1,head2);
+        else
+        {
+            prev->next = temp1;
+            Node* temp3 = temp1;
+            temp1 = temp2;
+            temp2 = temp3;
+        }
     }
-    return res;
+    
+    if(temp1)
+    {
+        prev->next = temp1;
+    }
+    
+    // else if(temp2)
+    // {
+        
+    //     temp1->next =  temp2;
+    // }
+    
+    return prev2->next;
+
 }  
