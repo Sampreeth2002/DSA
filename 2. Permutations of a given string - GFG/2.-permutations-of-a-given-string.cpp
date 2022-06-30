@@ -16,9 +16,9 @@ class Solution
 	        }
 	        for(int i=index;i<S.size();i++)
 	        {
-	            swap(S[index],S[i]);
+	            swap(S[i],S[index]);
 	            solve(S,index+1,ans);
-	            swap(S[index],S[i]);
+	            swap(S[i],S[index]);
 	        }
 	    }
 	
