@@ -1,27 +1,29 @@
 class Solution {
     public String smallestSubsequence(String s) {
-     boolean[] inStack = new boolean [26];
-        int[] lastIdx = new int [26];
-        Arrays.fill(lastIdx,-1);
-        for(int i = 0; i < s.length(); i++){
-            lastIdx[s.charAt(i)-'a'] = i;
+     int[] arr=new int[26];
+        for(int i=0;i<s.length();i++)
+        {
+            arr[s.charAt(i)-'a']=i;
         }
-        Deque<Character> dq = new ArrayDeque<>();
-        for(int i = 0; i < s.length(); i++){
-            char ch = s.charAt(i);
-            if(inStack[ch-'a']){
+        boolean[] visited=new boolean[26];
+        Deque<Integer> st=new ArrayDeque<>();
+        for(int i=0;i<s.length();i++)
+        {
+            int j=s.charAt(i)-'a';
+            if(visited[j])
                 continue;
+            while(!st.isEmpty() && st.peek()>j && arr[st.peek()]>i)
+            {
+                visited[st.pop()]=false;
             }
-            while(!dq.isEmpty() && dq.peekLast() > ch && lastIdx[dq.peekLast()-'a'] > i){
-                inStack[dq.pollLast()-'a'] = false;
-            }
-            dq.addLast(ch);
-            inStack[ch-'a'] = true;
+            st.push(j);
+            visited[j]=true;
         }
-        StringBuilder sb = new StringBuilder();
-        while(!dq.isEmpty()){
-            sb.append(dq.pollFirst());
+        StringBuilder str=new StringBuilder();
+        while(!st.isEmpty())
+        {
+            str.append((char)(st.pop()+'a'));
         }
-        return sb.toString();   
+        return str.reverse().toString();
     }
 }
