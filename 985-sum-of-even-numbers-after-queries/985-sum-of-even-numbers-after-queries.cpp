@@ -15,32 +15,11 @@ public:
             int val = queries[i][0];
             
             int curr = nums[index];
+            if(nums[index]%2==0) currSum -= curr;
+            nums[index] += val;
             
-            if((curr+val)%2==0)
-            {
-                if(curr%2==0)
-                {
-                    nums[index] += val;
-                    currSum += val;
-                }
-                else
-                {
-                    nums[index] += val;
-                    currSum += (val+curr);
-                }
-            }
-            else
-            {
-                if(curr%2==0)
-                {
-                    nums[index] += val;
-                    currSum -= curr;
-                }
-                else
-                {
-                    nums[index] += val;
-                }
-            }
+            if(nums[index]%2==0)
+                currSum+=nums[index];
             
             ans.push_back(currSum);
         }
